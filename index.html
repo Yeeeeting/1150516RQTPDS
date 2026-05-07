@@ -131,25 +131,26 @@
 
     <canvas id="particleCanvas"></canvas>
     
-    <!-- 導航列 -->
-    <nav class="sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 h-16 transition-colors duration-300 shadow-sm" id="main-nav">
+    <!-- 導航列：整合動態標籤 -->
+    <nav class="sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 h-[3.5rem] sm:h-16 transition-colors duration-300 shadow-sm" id="main-nav">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center bg-white overflow-hidden">
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-slate-200 flex items-center justify-center bg-white overflow-hidden shrink-0">
                     <img src="https://raw.githubusercontent.com/shiyun0310/1150516-Faculty-Development/main/LINE%E9%A0%AD%E8%B2%BC-3.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<i data-lucide=\'cpu\' class=\'text-slate-500 w-4 h-4\'></i>'; lucide.createIcons();">
                 </div>
-                <span class="font-bold text-tech-text text-sm sm:text-base tracking-wide">奇美醫院<span id="nav-brand-text" class="text-blue-600 transition-colors duration-300">教學部</span></span>
+                <span class="font-bold text-tech-text text-sm sm:text-base tracking-wide truncate">奇美醫院<span id="nav-brand-text" class="text-blue-600 transition-colors duration-300">教學部</span></span>
             </div>
-            <div id="system-mode-indicator" class="text-xs font-bold px-3 py-1 bg-blue-50 text-blue-600 rounded-full transition-colors duration-300 border border-blue-100">
-                報到與問卷系統
+            <!-- 動態狀態標籤：整合進導航列，節省垂直空間 -->
+            <div id="system-mode-indicator" class="text-[11px] sm:text-xs font-bold px-2.5 sm:px-3 py-1 bg-blue-50 text-blue-600 rounded-full transition-colors duration-300 border border-blue-100 whitespace-nowrap shrink-0">
+                前測流程
             </div>
         </div>
     </nav>
 
-    <!-- 主內容區：採用非對稱式黃金比例 (左5右7) 與頂部對齊 -->
-    <main class="flex-grow p-4 sm:p-6 pb-24 sm:pb-12 w-full max-w-6xl mx-auto z-10 relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start min-h-[calc(100vh-4rem)]">
+    <!-- 主內容區：縮減手機版 Padding，優化網格 -->
+    <main class="flex-grow p-4 sm:p-6 pb-24 sm:pb-12 w-full max-w-6xl mx-auto z-10 relative grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-12 items-start min-h-[calc(100vh-4rem)]">
         
-        <!-- 左側資訊看板：桌機版專屬黏性側邊欄 (Sticky Sidebar) -->
+        <!-- 左側資訊看板：桌機版專屬黏性側邊欄 (手機版完全隱藏以節省空間) -->
         <div class="hidden lg:flex lg:col-span-5 flex-col sticky top-24 space-y-6 pt-2 xl:pt-6">
             <div>
                 <span id="left-badge" class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mb-3 transition-colors duration-300">前測流程</span>
@@ -191,59 +192,46 @@
         </div>
 
         <!-- 右側互動區塊：動態表單區 -->
-        <div class="w-full lg:col-span-7 flex flex-col justify-start max-w-lg mx-auto lg:max-w-full relative">
+        <div class="w-full lg:col-span-7 flex flex-col justify-start max-w-lg mx-auto lg:max-w-full relative lg:pt-8">
             
-            <!-- 行動裝置版專用資訊看板 (置頂緊湊黏性設計) -->
-            <div class="block lg:hidden sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-2.5 shadow-sm -mx-4 sm:-mx-6 mb-6">
-                <div class="flex justify-between items-center gap-2">
-                    <h1 class="text-[15px] font-black text-slate-800 truncate">教師教學成長與培育研討會</h1>
-                    <span id="mobile-badge" class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-[10px] font-bold transition-colors duration-300 whitespace-nowrap shrink-0">前測流程</span>
-                </div>
-                <div class="flex items-center gap-3 mt-1.5 text-[11px] font-medium text-slate-500">
-                    <div class="flex items-center gap-1 shrink-0"><i data-lucide="calendar" class="w-3 h-3"></i>5/16 13:00-16:00</div>
-                    <div class="flex items-center gap-1 truncate"><i data-lucide="map-pin" class="w-3 h-3 shrink-0"></i><span class="truncate">第五醫療大樓5樓</span></div>
-                </div>
-            </div>
-
             <!-- 狀態區塊 1: 身分搜尋 (Search Phase) -->
             <div id="phase-search" class="w-full animate-float" style="animation-duration: 6s;">
-                <div class="glass-panel rounded-3xl p-6 sm:p-8 space-y-6 relative">
-                    <!-- 頂部裝飾條 (加上 rounded-t-3xl 以貼合父層圓角) -->
+                <!-- 縮減手機版 Padding 由 p-6 改為 p-5 -->
+                <div class="glass-panel rounded-3xl p-5 sm:p-8 space-y-4 sm:space-y-6 relative">
+                    <!-- 頂部裝飾條 -->
                     <div id="top-decor-bar" class="absolute top-0 left-0 w-full h-1.5 bg-blue-600 transition-colors duration-300 rounded-t-3xl"></div>
                     
-                    <div class="text-center space-y-2 pt-2">
-                        <div id="search-icon-bg" class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-inner text-blue-600 transition-colors duration-300 border border-blue-100">
-                            <i data-lucide="scan-line" class="w-8 h-8"></i>
+                    <div class="text-center pt-2">
+                        <div id="search-icon-bg" class="w-12 h-12 sm:w-16 sm:h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner text-blue-600 transition-colors duration-300 border border-blue-100">
+                            <i data-lucide="scan-line" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                         </div>
-                        <h2 class="text-2xl font-black theme-text-gradient">研討會報到 / 簽退</h2>
-                        <p class="text-sm text-tech-textMuted font-medium">請輸入您的<strong id="search-highlight-text" class="text-blue-600 transition-colors duration-300">姓名關鍵字</strong>進行身分驗證</p>
+                        <h2 class="text-xl sm:text-2xl font-black theme-text-gradient mb-1">研討會報到 / 簽退</h2>
+                        <p class="text-xs sm:text-sm text-tech-textMuted font-medium">請輸入您的<strong id="search-highlight-text" class="text-blue-600 transition-colors duration-300">姓名關鍵字</strong>進行驗證</p>
                     </div>
 
-                    <!-- 智慧時間狀態顯示區 -->
-                    <div id="time-status-container" class="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-xl mb-4 border border-slate-100 transition-all duration-300">
-                        <div id="time-status-badge" class="px-3 py-1.5 bg-slate-200 text-slate-600 font-bold rounded-full text-xs sm:text-sm mb-2 flex items-center gap-2">
-                            <i data-lucide="clock" class="w-4 h-4"></i>
+                    <!-- 智慧時間狀態顯示區 (緊湊版) -->
+                    <div id="time-status-container" class="flex flex-col items-center justify-center p-3 sm:p-4 bg-slate-50 rounded-xl border border-slate-100 transition-all duration-300">
+                        <div id="time-status-badge" class="px-3 py-1 bg-slate-200 text-slate-600 font-bold rounded-full text-xs mb-1 sm:mb-2 flex items-center gap-1.5">
+                            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
                             <span>系統時間偵測中...</span>
                         </div>
-                        <p id="time-status-message" class="text-xs sm:text-sm text-slate-500 font-medium text-center">正在驗證您的存取權限</p>
+                        <p id="time-status-message" class="text-[11px] sm:text-sm text-slate-500 font-medium text-center">正在驗證您的存取權限</p>
                         
                         <!-- 測試模式控制項 -->
-                        <div id="debug-controls" class="mt-3 w-full hidden border-t border-slate-200 pt-3">
-                            <p class="text-[10px] text-slate-400 text-center mb-2 font-bold uppercase tracking-widest">Debug Mode 開啟中</p>
+                        <div id="debug-controls" class="mt-2 w-full hidden border-t border-slate-200 pt-2">
                             <div class="flex gap-2">
-                                <button type="button" onclick="forceContext('check-in')" class="flex-1 py-1.5 text-xs font-bold rounded-lg shadow-sm bg-white border border-blue-200 text-blue-600 hover:bg-blue-50 transition-colors">模擬簽到時段</button>
-                                <button type="button" onclick="forceContext('check-out')" class="flex-1 py-1.5 text-xs font-bold rounded-lg shadow-sm bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 transition-colors">模擬簽退時段</button>
+                                <button type="button" onclick="forceContext('check-in')" class="flex-1 py-1.5 text-[11px] font-bold rounded-lg shadow-sm bg-white border border-blue-200 text-blue-600 hover:bg-blue-50 transition-colors">模擬簽到</button>
+                                <button type="button" onclick="forceContext('check-out')" class="flex-1 py-1.5 text-[11px] font-bold rounded-lg shadow-sm bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 transition-colors">模擬簽退</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 改用 form 標籤包覆，以捕捉手機鍵盤的「搜尋/Go」事件 -->
+                    <!-- 搜尋表單區 -->
                     <form onsubmit="handleSearchSubmit(event)" class="relative transition-opacity duration-300" id="search-input-area">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <i data-lucide="search" class="w-5 h-5 text-slate-400"></i>
                         </div>
-                        <!-- 使用 type="search" 與 enterkeyhint 最佳化手機鍵盤 -->
-                        <input type="search" enterkeyhint="search" id="name-input" autocomplete="off" class="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-slate-200 rounded-xl text-tech-text placeholder-slate-400 focus:outline-none focus:border-[var(--theme-primary)] focus:ring-4 focus:ring-[var(--theme-light)] transition-all font-medium text-lg disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed disabled:border-slate-200" placeholder="例如：陳">
+                        <input type="search" enterkeyhint="search" id="name-input" autocomplete="off" class="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-slate-200 rounded-xl text-tech-text placeholder-slate-400 focus:outline-none focus:border-[var(--theme-primary)] focus:ring-4 focus:ring-[var(--theme-light)] transition-all font-medium text-base sm:text-lg disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed disabled:border-slate-200" placeholder="例如：陳">
                         
                         <!-- 模糊搜尋結果下拉選單 -->
                         <div id="search-results" class="absolute w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl overflow-hidden hidden z-[60] max-h-[40vh] sm:max-h-60 overflow-y-auto">
@@ -256,40 +244,42 @@
             <!-- 狀態區塊 2: 問卷表單 (Form Phase) -->
             <div id="phase-form" class="w-full hidden">
                 <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-8 relative">
-                    <!-- 頂部裝飾條 (加上 rounded-t-2xl sm:rounded-t-3xl) -->
+                    <!-- 頂部裝飾條 -->
                     <div id="form-top-decor-bar" class="absolute top-0 left-0 w-full h-1.5 bg-blue-600 transition-colors duration-300 rounded-t-2xl sm:rounded-t-3xl"></div>
 
-                    <!-- 標頭資訊 -->
-                    <div class="border-b border-slate-200 pb-5 mb-6 pt-2">
-                        <div class="flex items-center justify-between mb-4">
-                            <button type="button" onclick="cancelForm()" class="flex items-center gap-1.5 text-slate-500 hover:text-[var(--theme-primary)] transition-colors text-sm font-bold bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm">
-                                <i data-lucide="arrow-left" class="w-4 h-4"></i> 重新選擇
-                            </button>
-                            <div class="text-right">
-                                <span id="user-badge" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-bold border border-blue-100 transition-colors duration-300 shadow-sm">
-                                    <i data-lucide="user" class="w-4 h-4"></i>
+                    <!-- 標頭資訊：極致扁平化整合 -->
+                    <div class="border-b border-slate-200 pb-4 sm:pb-5 mb-5 sm:mb-6 pt-2">
+                        <div class="flex items-start sm:items-center justify-between gap-3 mb-3">
+                            <div class="flex-1">
+                                <h2 id="form-title" class="text-lg sm:text-2xl font-black text-blue-600 transition-colors duration-300 leading-tight">前測問卷</h2>
+                                <p class="text-[11px] sm:text-sm text-tech-textMuted font-medium mt-0.5">研討會簽到與問卷流程</p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-end sm:items-center gap-2 shrink-0">
+                                <span id="user-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 text-blue-600 rounded-lg text-xs sm:text-sm font-bold border border-blue-100 transition-colors duration-300">
+                                    <i data-lucide="user" class="w-3.5 h-3.5"></i>
                                     <span id="display-name">陳Ｏ明</span>
                                 </span>
+                                <button type="button" onclick="cancelForm()" class="flex items-center gap-1 text-slate-500 hover:text-[var(--theme-primary)] transition-colors text-xs font-bold bg-slate-50 hover:bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>重選
+                                </button>
                             </div>
                         </div>
-                        <div>
-                            <h2 id="form-title" class="text-xl sm:text-2xl font-black text-blue-600 transition-colors duration-300 mb-1">前測問卷</h2>
-                        </div>
-                        <div class="mt-4 p-3.5 bg-amber-50 border border-amber-100 rounded-xl shadow-sm">
-                            <p id="form-description" class="text-[13px] sm:text-sm text-amber-800 font-medium leading-relaxed">
+                        
+                        <div class="p-3 bg-amber-50 border border-amber-100 rounded-lg shadow-sm">
+                            <p id="form-description" class="text-[12px] sm:text-[13px] text-amber-800 font-medium leading-relaxed">
                                 為瞭解您目前在兩堂課程相關面向的自我認知狀態，請依您「當下」的感受填答。
                             </p>
                         </div>
                     </div>
 
-                    <form id="questionnaire-form" onsubmit="handleFormSubmit(event)" class="space-y-8 sm:space-y-10">
+                    <form id="questionnaire-form" onsubmit="handleFormSubmit(event)" class="space-y-6 sm:space-y-8">
                         <!-- 動態問卷內容區 -->
-                        <div id="form-content" class="space-y-8"></div>
+                        <div id="form-content" class="space-y-6 sm:space-y-8"></div>
 
                         <!-- 提交按鈕 -->
-                        <div class="pt-6 sm:pt-8 border-t border-slate-200 pb-8 sm:pb-0">
-                            <button type="submit" id="submit-btn" class="w-full flex justify-center items-center gap-2 py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95">
-                                <i data-lucide="send" class="w-5 h-5"></i>
+                        <div class="pt-4 sm:pt-6 border-t border-slate-200">
+                            <button type="submit" id="submit-btn" class="w-full flex justify-center items-center gap-2 py-3.5 sm:py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-base sm:text-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95">
+                                <i data-lucide="send" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                                 <span>確認送出並完成作業</span>
                             </button>
                         </div>
@@ -300,14 +290,14 @@
             <!-- 狀態區塊 3: 完成畫面 (Success Phase) -->
             <div id="phase-success" class="w-full hidden animate-float" style="animation-duration: 6s;">
                 <div class="glass-panel rounded-3xl p-8 sm:p-10 text-center space-y-6 relative">
-                    <!-- 頂部裝飾條 (加上 rounded-t-3xl) -->
+                    <!-- 頂部裝飾條 -->
                     <div id="success-top-decor-bar" class="absolute top-0 left-0 w-full h-1.5 bg-blue-600 transition-colors duration-300 rounded-t-3xl"></div>
 
-                    <div id="success-icon-bg" class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto shadow-inner text-blue-600 transition-colors duration-300">
-                        <i data-lucide="check-circle-2" class="w-10 h-10"></i>
+                    <div id="success-icon-bg" class="w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto shadow-inner text-blue-600 transition-colors duration-300">
+                        <i data-lucide="check-circle-2" class="w-8 h-8 sm:w-10 sm:h-10"></i>
                     </div>
                     <div class="space-y-2">
-                        <h2 class="text-2xl font-black text-slate-800">資料寫入成功</h2>
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-800">資料寫入成功</h2>
                         <p id="success-msg" class="text-sm text-slate-500 font-medium">感謝您的填寫，已完成簽到程序。</p>
                     </div>
                     <button type="button" onclick="resetSystem()" class="mt-4 px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold text-sm transition-all shadow-sm">
@@ -366,16 +356,21 @@
 
             // 導航列與首頁圖示
             document.getElementById('nav-brand-text').className = `${theme.primaryText} transition-colors duration-300`;
-            document.getElementById('system-mode-indicator').className = `text-xs font-bold px-3 py-1 ${theme.bgLight} ${theme.primaryText} rounded-full transition-colors duration-300 border ${theme.borderLight}`;
-            document.getElementById('search-icon-bg').className = `w-16 h-16 ${theme.bgLight} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-inner ${theme.primaryText} transition-colors duration-300 border ${theme.borderLight}`;
+            
+            // 整合進導覽列的狀態標籤
+            const sysIndicator = document.getElementById('system-mode-indicator');
+            sysIndicator.innerText = theme.label;
+            sysIndicator.className = `text-[11px] sm:text-xs font-bold px-2.5 sm:px-3 py-1 ${theme.bgLight} ${theme.primaryText} rounded-full transition-colors duration-300 border ${theme.borderLight} whitespace-nowrap shrink-0`;
+            
+            document.getElementById('search-icon-bg').className = `w-12 h-12 sm:w-16 sm:h-16 ${theme.bgLight} rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner ${theme.primaryText} transition-colors duration-300 border ${theme.borderLight}`;
             document.getElementById('search-highlight-text').className = `${theme.primaryText} transition-colors duration-300`;
             
             // 表單標頭
-            document.getElementById('form-title').className = `text-xl sm:text-2xl font-black ${theme.primaryText} transition-colors duration-300 mb-1`;
-            document.getElementById('user-badge').className = `inline-flex items-center gap-1.5 px-3 py-1.5 ${theme.bgLight} ${theme.primaryText} rounded-lg text-sm font-bold border ${theme.borderLight} transition-colors duration-300 shadow-sm`;
+            document.getElementById('form-title').className = `text-lg sm:text-2xl font-black ${theme.primaryText} transition-colors duration-300 leading-tight`;
+            document.getElementById('user-badge').className = `inline-flex items-center gap-1.5 px-2.5 py-1 ${theme.bgLight} ${theme.primaryText} rounded-lg text-xs sm:text-sm font-bold border ${theme.borderLight} transition-colors duration-300`;
             
             // 完成畫面圖示
-            document.getElementById('success-icon-bg').className = `w-20 h-20 ${theme.bgLight} rounded-full flex items-center justify-center mx-auto shadow-inner ${theme.primaryText} transition-colors duration-300`;
+            document.getElementById('success-icon-bg').className = `w-16 h-16 sm:w-20 sm:h-20 ${theme.bgLight} rounded-full flex items-center justify-center mx-auto shadow-inner ${theme.primaryText} transition-colors duration-300`;
 
             // 左側看板 (桌機)
             const leftBadge = document.getElementById('left-badge');
@@ -391,16 +386,9 @@
             if (leftIlluSprout) leftIlluSprout.className = `absolute left-6 bottom-4 w-20 h-20 ${theme.bgLight} rounded-full flex items-center justify-center shadow-md border-4 border-white z-20 transition-colors duration-300`;
             const leftIlluIcon = document.getElementById('left-illustration-icon');
             if (leftIlluIcon) leftIlluIcon.className = `w-10 h-10 ${theme.primaryText} transition-colors duration-300`;
-            
-            // 行動版緊湊黏性標籤
-            const mobileBadge = document.getElementById('mobile-badge');
-            if (mobileBadge) {
-                mobileBadge.innerText = theme.label;
-                mobileBadge.className = `px-2 py-0.5 ${theme.bgLight} ${theme.primaryText} rounded text-[10px] font-bold transition-colors duration-300 whitespace-nowrap shrink-0`;
-            }
 
             // 送出按鈕
-            document.getElementById('submit-btn').className = `w-full flex justify-center items-center gap-2 py-4 px-6 ${theme.btn} text-white rounded-xl font-bold text-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95`;
+            document.getElementById('submit-btn').className = `w-full flex justify-center items-center gap-2 py-3.5 sm:py-4 px-6 ${theme.btn} text-white rounded-xl font-bold text-base sm:text-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95`;
         }
 
         // 模擬資料庫
@@ -552,25 +540,25 @@
 
             if (isCheckInTime) {
                 currentContext = 'check-in';
-                badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i><span>簽到開放中</span>`;
-                badge.className = "px-3 py-1.5 bg-blue-100 text-blue-600 font-bold rounded-full text-xs sm:text-sm mb-2 flex items-center gap-2";
+                badge.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>簽到開放中</span>`;
+                badge.className = "px-3 py-1 bg-blue-100 text-blue-600 font-bold rounded-full text-xs mb-1 sm:mb-2 flex items-center gap-1.5";
                 if(!TEST_MODE) msg.innerText = `開放時間：${checkInStart} ~ ${checkInEnd}`;
                 inputArea.disabled = false;
-                container.className = "flex flex-col items-center justify-center p-4 bg-blue-50/50 rounded-xl mb-4 border border-blue-100 transition-all duration-300";
+                container.className = "flex flex-col items-center justify-center p-3 sm:p-4 bg-blue-50/50 rounded-xl mb-4 border border-blue-100 transition-all duration-300";
             } else if (isCheckOutTime) {
                 currentContext = 'check-out';
-                badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i><span>簽退開放中</span>`;
-                badge.className = "px-3 py-1.5 bg-orange-100 text-orange-600 font-bold rounded-full text-xs sm:text-sm mb-2 flex items-center gap-2";
+                badge.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>簽退開放中</span>`;
+                badge.className = "px-3 py-1 bg-orange-100 text-orange-600 font-bold rounded-full text-xs mb-1 sm:mb-2 flex items-center gap-1.5";
                 if(!TEST_MODE) msg.innerText = `開放時間：${checkOutStart} ~ ${checkOutEnd}`;
                 inputArea.disabled = false;
-                container.className = "flex flex-col items-center justify-center p-4 bg-orange-50/50 rounded-xl mb-4 border border-orange-100 transition-all duration-300";
+                container.className = "flex flex-col items-center justify-center p-3 sm:p-4 bg-orange-50/50 rounded-xl mb-4 border border-orange-100 transition-all duration-300";
             } else {
-                badge.innerHTML = `<i data-lucide="lock" class="w-4 h-4"></i><span>系統暫停服務</span>`;
-                badge.className = "px-3 py-1.5 bg-slate-100 text-slate-500 font-bold rounded-full text-xs sm:text-sm mb-2 flex items-center gap-2";
-                msg.innerHTML = `目前非報到或簽退時間<br><span class="text-xs text-slate-400 mt-1 block">簽到: ${checkInStart}-${checkInEnd} | 簽退: ${checkOutStart}-${checkOutEnd}</span>`;
+                badge.innerHTML = `<i data-lucide="lock" class="w-3.5 h-3.5"></i><span>系統暫停服務</span>`;
+                badge.className = "px-3 py-1 bg-slate-100 text-slate-500 font-bold rounded-full text-xs mb-1 sm:mb-2 flex items-center gap-1.5";
+                msg.innerHTML = `目前非報到或簽退時間<br><span class="text-[11px] sm:text-xs text-slate-400 mt-1 block">簽到: ${checkInStart}-${checkInEnd} | 簽退: ${checkOutStart}-${checkOutEnd}</span>`;
                 inputArea.disabled = true;
                 inputArea.placeholder = "非開放時間，無法輸入";
-                container.className = "flex flex-col items-center justify-center p-4 bg-slate-50 rounded-xl mb-4 border border-slate-200 transition-all duration-300";
+                container.className = "flex flex-col items-center justify-center p-3 sm:p-4 bg-slate-50 rounded-xl mb-4 border border-slate-200 transition-all duration-300";
             }
 
             updateUITreme();
@@ -588,13 +576,13 @@
             inputArea.placeholder = "例如：陳";
             
             if(ctx === 'check-in') {
-                badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i><span>強制簽到模式</span>`;
-                badge.className = "px-3 py-1.5 bg-blue-100 text-blue-600 font-bold rounded-full text-xs sm:text-sm mb-2 flex items-center gap-2";
-                container.className = "flex flex-col items-center justify-center p-4 bg-blue-50/50 rounded-xl mb-4 border border-blue-100 transition-all duration-300";
+                badge.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>強制簽到模式</span>`;
+                badge.className = "px-3 py-1 bg-blue-100 text-blue-600 font-bold rounded-full text-xs mb-1 sm:mb-2 flex items-center gap-1.5";
+                container.className = "flex flex-col items-center justify-center p-3 sm:p-4 bg-blue-50/50 rounded-xl mb-4 border border-blue-100 transition-all duration-300";
             } else {
-                badge.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i><span>強制簽退模式</span>`;
-                badge.className = "px-3 py-1.5 bg-orange-100 text-orange-600 font-bold rounded-full text-xs sm:text-sm mb-2 flex items-center gap-2";
-                container.className = "flex flex-col items-center justify-center p-4 bg-orange-50/50 rounded-xl mb-4 border border-orange-100 transition-all duration-300";
+                badge.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>強制簽退模式</span>`;
+                badge.className = "px-3 py-1 bg-orange-100 text-orange-600 font-bold rounded-full text-xs mb-1 sm:mb-2 flex items-center gap-1.5";
+                container.className = "flex flex-col items-center justify-center p-3 sm:p-4 bg-orange-50/50 rounded-xl mb-4 border border-orange-100 transition-all duration-300";
             }
             msg.innerText = "已透過測試控制項強制切換主題";
             
@@ -635,8 +623,8 @@
                 
                 searchResults.innerHTML = results.map(u => `
                     <button type="button" onclick="selectUser('${u.uid}')" class="w-full text-left px-4 py-3 ${themeBgHover} border-b border-slate-100 last:border-0 transition-colors flex flex-col group">
-                        <span class="font-bold text-slate-800 text-lg group-hover:${themeText} transition-colors">${u.name}</span>
-                        <span class="text-xs text-slate-500 font-medium">${u.category} / ${u.dept} / ${u.title}</span>
+                        <span class="font-bold text-slate-800 text-base sm:text-lg group-hover:${themeText} transition-colors">${u.name}</span>
+                        <span class="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5">${u.category} / ${u.dept} / ${u.title}</span>
                     </button>
                 `).join('');
                 searchResults.classList.remove('hidden');
@@ -668,16 +656,16 @@
             schema.sections.forEach((sec, sIdx) => {
                 html += `
                     <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        <div class="bg-slate-50 px-4 py-3 sm:px-6 sm:py-4 border-b border-slate-200">
-                            <h3 class="font-black text-slate-800 text-lg sm:text-xl">${sec.title}</h3>
-                            ${sec.desc ? `<p class="text-xs sm:text-sm text-slate-500 font-medium mt-1">${sec.desc}</p>` : ''}
+                        <div class="bg-slate-50 px-3 py-3 sm:px-6 sm:py-4 border-b border-slate-200">
+                            <h3 class="font-black text-slate-800 text-base sm:text-xl">${sec.title}</h3>
+                            ${sec.desc ? `<p class="text-[11px] sm:text-sm text-slate-500 font-medium mt-1">${sec.desc}</p>` : ''}
                         </div>
                         <div class="p-4 sm:p-6 space-y-6 sm:space-y-8">
                 `;
 
                 sec.items.forEach((item, iIdx) => {
                     html += `<div class="form-group" id="group_${item.id}">`;
-                    html += `<p class="font-bold text-slate-800 mb-3 sm:mb-4 text-[15px] sm:text-base leading-snug">
+                    html += `<p class="font-bold text-slate-800 mb-3 sm:mb-4 text-[14px] sm:text-base leading-snug">
                                 ${iIdx + 1}. ${item.label}
                                 ${item.required !== false ? '<span class="text-red-500 ml-1">*</span>' : ''}
                              </p>`;
@@ -698,24 +686,24 @@
                     } 
                     else if (item.type === 'radio' || item.type === 'checkbox') {
                         const inputType = item.type;
-                        html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">`;
+                        html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">`;
                         item.options.forEach((opt, oIdx) => {
                             html += `
-                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:${theme.bgLight} transition-colors relative group">
+                                <label class="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 border border-slate-200 rounded-xl cursor-pointer hover:${theme.bgLight} transition-colors relative group">
                                     <input type="${inputType}" name="${item.id}" value="${opt}" class="mt-0.5 w-4 h-4 border-slate-300 ${theme.focusRing} !accent-[var(--theme-primary)]" style="accent-color: var(--theme-primary);" ${item.required !== false ? 'required' : ''}>
-                                    <span class="text-sm font-medium text-slate-700 leading-tight group-hover:${theme.primaryText} transition-colors">${opt}</span>
+                                    <span class="text-[13px] sm:text-sm font-medium text-slate-700 leading-tight group-hover:${theme.primaryText} transition-colors">${opt}</span>
                                 </label>
                             `;
                         });
                         
                         if (item.allowOther) {
                             html += `
-                                <label class="flex items-start gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:${theme.bgLight} transition-colors col-span-1 sm:col-span-2 relative group">
+                                <label class="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 border border-slate-200 rounded-xl cursor-pointer hover:${theme.bgLight} transition-colors col-span-1 sm:col-span-2 relative group">
                                     <input type="${inputType}" name="${item.id}" value="_other_" class="mt-0.5 w-4 h-4 border-slate-300 ${theme.focusRing} toggle-other !accent-[var(--theme-primary)]" style="accent-color: var(--theme-primary);" data-target="${item.id}_other_text">
-                                    <span class="text-sm font-medium text-slate-700 leading-tight group-hover:${theme.primaryText} transition-colors">${item.otherLabel || '其他'}</span>
+                                    <span class="text-[13px] sm:text-sm font-medium text-slate-700 leading-tight group-hover:${theme.primaryText} transition-colors">${item.otherLabel || '其他'}</span>
                                 </label>
-                                <div class="col-span-1 sm:col-span-2 hidden mt-2" id="${item.id}_other_text_container">
-                                    <input type="text" id="${item.id}_other_text" name="${item.id}_other_text" placeholder="請說明..." class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 ${theme.focusRing}/20 focus:border-[var(--theme-primary)] text-sm outline-none transition-all shadow-inner">
+                                <div class="col-span-1 sm:col-span-2 hidden mt-1.5 sm:mt-2" id="${item.id}_other_text_container">
+                                    <input type="text" id="${item.id}_other_text" name="${item.id}_other_text" placeholder="請說明..." class="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:ring-2 ${theme.focusRing}/20 focus:border-[var(--theme-primary)] text-sm outline-none transition-all shadow-inner">
                                 </div>
                             `;
                         }
