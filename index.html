@@ -557,7 +557,10 @@
                 badge.className = "px-3 py-1 bg-slate-100 text-slate-500 font-bold rounded-full text-xs mb-1 sm:mb-2 flex items-center gap-1.5";
                 msg.innerHTML = `目前非報到或簽退時間<br><span class="text-[11px] sm:text-xs text-slate-400 mt-1 block">簽到: ${checkInStart}-${checkInEnd} | 簽退: ${checkOutStart}-${checkOutEnd}</span>`;
                 inputArea.disabled = true;
+                inputArea.value = '';
                 inputArea.placeholder = "非開放時間，無法輸入";
+                document.getElementById('search-results').classList.add('hidden');
+                document.getElementById('search-results').innerHTML = '';
                 container.className = "flex flex-col items-center justify-center p-3 sm:p-4 bg-slate-50 rounded-xl mb-4 border border-slate-200 transition-all duration-300";
             }
 
@@ -573,7 +576,10 @@
             const container = document.getElementById('time-status-container');
             
             inputArea.disabled = false;
+            inputArea.value = '';
             inputArea.placeholder = "例如：陳";
+            document.getElementById('search-results').classList.add('hidden');
+            document.getElementById('search-results').innerHTML = '';
             
             if(ctx === 'check-in') {
                 badge.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>強制簽到模式</span>`;
@@ -614,6 +620,7 @@
             const keyword = e.target.value.trim();
             if (keyword.length < 1) {
                 searchResults.classList.add('hidden');
+                searchResults.innerHTML = '';
                 return;
             }
             const results = mockUsers.filter(u => u.name.includes(keyword));
@@ -636,6 +643,8 @@
 
         function selectUser(uid) {
             currentUser = mockUsers.find(u => u.uid === uid);
+            document.getElementById('search-results').classList.add('hidden');
+            document.getElementById('search-results').innerHTML = '';
             document.getElementById('phase-search').classList.add('hidden');
             document.getElementById('phase-form').classList.remove('hidden');
             
@@ -794,6 +803,7 @@
             currentUser = null;
             document.getElementById('name-input').value = '';
             document.getElementById('search-results').classList.add('hidden');
+            document.getElementById('search-results').innerHTML = '';
             document.getElementById('phase-form').classList.add('hidden');
             document.getElementById('phase-search').classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -802,6 +812,8 @@
         function resetSystem() {
             currentUser = null;
             document.getElementById('name-input').value = '';
+            document.getElementById('search-results').classList.add('hidden');
+            document.getElementById('search-results').innerHTML = '';
             document.getElementById('phase-success').classList.add('hidden');
             document.getElementById('phase-search').classList.remove('hidden');
             checkEventTime(); 
