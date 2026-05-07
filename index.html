@@ -169,7 +169,8 @@
                 <div class="flex flex-col items-center justify-center gap-2 bg-white/80 p-4 rounded-xl border border-slate-100 shadow-sm backdrop-blur-md">
                     <div id="left-icon-2" class="p-2 bg-blue-50 text-blue-600 rounded-full transition-colors duration-300"><i data-lucide="map-pin" class="w-5 h-5"></i></div>
                     <div>
-                        <p class="text-xs font-bold text-slate-500 mb-0.5">奇美醫院 第五醫療大樓5樓</p>
+                        <!-- 修改為無空格版本，完全符合官方場地標籤 -->
+                        <p class="text-xs font-bold text-slate-500 mb-0.5">奇美醫院第五醫療大樓5樓</p>
                         <p class="text-base font-black text-slate-800">國際會議廳</p>
                     </div>
                 </div>
@@ -198,8 +199,9 @@
             <div class="block lg:hidden w-full max-w-md mx-auto mb-5 px-2 animate-float flex flex-col items-center text-center" style="animation-duration: 6s;">
                 <h1 class="text-2xl font-black text-slate-800 leading-snug mb-2.5 tracking-tight">教師教學成長<br>與培育研討會</h1>
                 <div class="flex flex-col items-center justify-center gap-1.5 text-xs font-bold text-slate-500">
-                    <div class="flex items-center justify-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4 text-[var(--theme-primary)] transition-colors duration-300"></i>5/16 13:00-16:00</div>
-                    <div class="flex items-center justify-center gap-1.5"><i data-lucide="map-pin" class="w-4 h-4 text-[var(--theme-primary)] transition-colors duration-300"></i>第五醫療大樓5樓</div>
+                    <div class="flex items-center justify-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4 shrink-0 text-[var(--theme-primary)] transition-colors duration-300"></i>5/16 13:00-16:00</div>
+                    <!-- 行動版場地資訊完整展開並加入 shrink-0 防止變形 -->
+                    <div class="flex items-center justify-center gap-1.5"><i data-lucide="map-pin" class="w-4 h-4 shrink-0 text-[var(--theme-primary)] transition-colors duration-300"></i><span>奇美醫院第五醫療大樓5樓 國際會議廳</span></div>
                 </div>
             </div>
 
