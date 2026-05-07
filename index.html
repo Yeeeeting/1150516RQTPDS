@@ -309,7 +309,7 @@
                     </div>
                     <div class="space-y-2">
                         <h2 class="text-xl sm:text-2xl font-black text-slate-800">資料寫入成功</h2>
-                        <p id="success-msg" class="text-sm text-slate-500 font-medium">感謝您的填寫，已完成簽到程序。</p>
+                        <p id="success-msg" class="text-sm text-slate-500 font-medium leading-relaxed">感謝您的填寫，已完成簽到程序。</p>
                     </div>
                     <button type="button" onclick="resetSystem()" class="mt-4 px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold text-sm transition-all shadow-sm">
                         返回首頁
@@ -803,9 +803,10 @@
             document.getElementById('phase-form').classList.add('hidden');
             document.getElementById('phase-success').classList.remove('hidden');
             
+            // 動態切換完成畫面的文案
             const msg = currentContext === 'check-in' ? 
-                `感謝您的填寫，${currentUser.name} 已完成「簽到」與前測作業。` : 
-                `感謝您的填寫，${currentUser.name} 已完成「簽退」與後測作業，一路平安！`;
+                `感謝您的填寫，${currentUser.name} 已完成「簽到」與前測。` : 
+                `感謝您的填寫，${currentUser.name} 已完成「簽退」與後測，一路平安！`;
             document.getElementById('success-msg').innerText = msg;
             window.scrollTo(0, 0);
         }
