@@ -777,11 +777,10 @@
             }
         }
 
-        // 攔截並處理表單送出事件 (加入非同步 API 串接與 Loading 防呆)
+        // 攔截並處理表單送出事件 (高容錯 API 串接引擎 - no-cors 模式盲發)
         async function handleFormSubmit(e) {
             e.preventDefault();
             
-            // 變更按鈕為載入狀態，防止重複點擊造成的資料庫髒寫入
             const submitBtn = document.getElementById('submit-btn');
             const originalBtnHtml = submitBtn.innerHTML;
             submitBtn.disabled = true;
@@ -805,21 +804,19 @@
                     payload.data[key].push(value);
                 }
             }
-
-            console.log("🚀 Payload 準備傳送:", payload);
             
             try {
-                // 發送至您部署的 GAS Web App API Endpoint
+                // 使用 no-cors 模式強制盲發，避開瀏覽器對於 GAS API 轉址的嚴格 CORS 攔截
                 await fetch("https://script.google.com/macros/s/AKfycbw4XIrUy2tR8QRVxhv9AdqeZOSnCR3SqvNq52BWeqCbyy5GF4P2r0DbkpfHAXaTzqZZ7g/exec", {
                     method: "POST",
-                    mode: "no-cors", // 關鍵修正：加入 no-cors 模式，徹底繞過瀏覽器的 CORS 與 Redirect 阻擋
+                    mode: "no-cors",
                     body: JSON.stringify(payload),
                     headers: {
                         "Content-Type": "text/plain;charset=utf-8", 
                     }
                 });
                 
-                // no-cors 模式下回傳為 opaque response，無法讀取 JSON，只要不報錯即視為傳送成功
+                // 盲發模式無法解析 JSON 回應，只要發送過程無拋出錯誤，即認定網路層傳輸成功
                 document.getElementById('phase-form').classList.add('hidden');
                 document.getElementById('phase-success').classList.remove('hidden');
                 
@@ -829,11 +826,9 @@
                 document.getElementById('success-msg').innerText = msg;
                 window.scrollTo(0, 0);
             } catch (error) {
-                // 網路斷線或 API 異常的例外處理
-                alert("連線發生錯誤，請檢查網路狀態或洽詢現場工作人員。\n" + error);
+                alert("伺服器連線異常\n請檢查您的網路狀態，或稍後再試。\n系統訊息: " + error.message);
                 console.error(error);
             } finally {
-                // 恢復按鈕預設狀態
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnHtml;
                 lucide.createIcons();
@@ -896,7 +891,7 @@
         }
         resize(); initParticles(); loop();
         
-        // 啟動預設主題與時間鎖定
+        // 啟 কথ預設主題與時間鎖定
         checkEventTime();
         
         // 每分鐘定期檢查一次時間
