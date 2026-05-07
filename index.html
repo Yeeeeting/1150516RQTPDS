@@ -81,7 +81,6 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
         }
 
-        /* 主題文字漸層 (支援動態切換) */
         .theme-text-gradient {
             background: linear-gradient(135deg, var(--theme-primary), #64748b);
             -webkit-background-clip: text;
@@ -96,7 +95,6 @@
             pointer-events: none;
         }
 
-        /* 自訂單選/複選框樣式，嚴格綁定 CSS 變數 */
         .custom-radio:checked + div {
             background-color: var(--theme-primary);
             border-color: var(--theme-primary);
@@ -112,12 +110,10 @@
             opacity: 1;
         }
 
-        /* Hover 狀態綁定 */
         .hover-theme-border:hover {
             border-color: var(--theme-primary) !important;
         }
 
-        /* 隱藏捲軸但保留功能 */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -131,7 +127,7 @@
 
     <canvas id="particleCanvas"></canvas>
     
-    <!-- 導航列：整合動態標籤 -->
+    <!-- 導航列 -->
     <nav class="sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 h-[3.5rem] sm:h-16 transition-colors duration-300 shadow-sm" id="main-nav">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
             <div class="flex items-center gap-2 sm:gap-3">
@@ -140,17 +136,16 @@
                 </div>
                 <span class="font-bold text-tech-text text-sm sm:text-base tracking-wide truncate">奇美醫院<span id="nav-brand-text" class="text-blue-600 transition-colors duration-300">教學部</span></span>
             </div>
-            <!-- 動態狀態標籤：整合進導航列，節省垂直空間 -->
             <div id="system-mode-indicator" class="text-[11px] sm:text-xs font-bold px-2.5 sm:px-3 py-1 bg-blue-50 text-blue-600 rounded-full transition-colors duration-300 border border-blue-100 whitespace-nowrap shrink-0">
                 簽到暨前測
             </div>
         </div>
     </nav>
 
-    <!-- 主內容區：縮減手機版 Padding，優化網格 -->
+    <!-- 主內容區 -->
     <main class="flex-grow p-4 sm:p-6 pb-24 sm:pb-12 w-full max-w-6xl mx-auto z-10 relative grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-12 items-start min-h-[calc(100vh-4rem)]">
         
-        <!-- 左側資訊看板：桌機版專屬黏性側邊欄 (手機版隱藏) -->
+        <!-- 左側資訊看板 -->
         <div class="hidden lg:flex lg:col-span-5 flex-col items-center text-center sticky top-24 space-y-6 pt-2 xl:pt-6">
             <div class="flex flex-col items-center">
                 <span id="left-badge" class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mb-3 transition-colors duration-300">簽到暨前測</span>
@@ -158,7 +153,6 @@
             </div>
             
             <div class="space-y-3 w-full max-w-[280px]">
-                <!-- 圖示與文字全面置中設計 -->
                 <div class="flex flex-col items-center justify-center gap-2 bg-white/80 p-4 rounded-xl border border-slate-100 shadow-sm backdrop-blur-md">
                     <div id="left-icon-1" class="p-2 bg-blue-50 text-blue-600 rounded-full transition-colors duration-300"><i data-lucide="calendar" class="w-5 h-5"></i></div>
                     <div>
@@ -191,10 +185,10 @@
             </div>
         </div>
 
-        <!-- 右側互動區塊：動態表單區 -->
+        <!-- 右側互動區塊 -->
         <div class="w-full lg:col-span-7 flex flex-col justify-start max-w-lg mx-auto lg:max-w-full relative lg:pt-8">
             
-            <!-- 行動裝置版專用資訊看板 (無框線扁平化、絕對置中設計) -->
+            <!-- 行動裝置版專用資訊看板 -->
             <div class="block lg:hidden w-full max-w-md mx-auto mb-5 px-2 animate-float flex flex-col items-center text-center" style="animation-duration: 6s;">
                 <h1 class="text-2xl font-black text-slate-800 leading-snug mb-2.5 tracking-tight">教師教學成長<br>與培育研討會</h1>
                 <div class="flex flex-col items-center justify-center gap-1.5 text-xs font-bold text-slate-500">
@@ -203,10 +197,9 @@
                 </div>
             </div>
 
-            <!-- 狀態區塊 1: 身分搜尋 (Search Phase) -->
+            <!-- 狀態區塊 1: 身分搜尋 -->
             <div id="phase-search" class="w-full animate-float" style="animation-duration: 6s;">
                 <div class="glass-panel rounded-3xl p-5 sm:p-8 space-y-4 sm:space-y-6 relative">
-                    <!-- 頂部裝飾條 -->
                     <div id="top-decor-bar" class="absolute top-0 left-0 w-full h-1.5 bg-blue-600 transition-colors duration-300 rounded-t-3xl"></div>
                     
                     <div class="text-center pt-2">
@@ -241,21 +234,17 @@
                         </div>
                         <input type="search" enterkeyhint="search" id="name-input" autocomplete="off" class="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-slate-200 rounded-xl text-tech-text placeholder-slate-400 focus:outline-none focus:border-[var(--theme-primary)] focus:ring-4 focus:ring-[var(--theme-light)] transition-all font-medium text-base sm:text-lg disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed disabled:border-slate-200" placeholder="例如：陳">
                         
-                        <!-- 模糊搜尋結果下拉選單 -->
                         <div id="search-results" class="absolute w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl overflow-hidden hidden z-[60] max-h-[40vh] sm:max-h-60 overflow-y-auto">
-                            <!-- 結果由 JS 動態生成 -->
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- 狀態區塊 2: 問卷表單 (Form Phase) -->
+            <!-- 狀態區塊 2: 問卷表單 -->
             <div id="phase-form" class="w-full hidden">
                 <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-8 relative">
-                    <!-- 頂部裝飾條 -->
                     <div id="form-top-decor-bar" class="absolute top-0 left-0 w-full h-1.5 bg-blue-600 transition-colors duration-300 rounded-t-2xl sm:rounded-t-3xl"></div>
 
-                    <!-- 標頭資訊 -->
                     <div class="border-b border-slate-200 pb-4 sm:pb-5 mb-5 sm:mb-6 pt-2">
                         <div class="flex items-start sm:items-center justify-between gap-3 mb-3">
                             <div class="flex-1">
@@ -281,10 +270,8 @@
                     </div>
 
                     <form id="questionnaire-form" onsubmit="handleFormSubmit(event)" class="space-y-6 sm:space-y-8">
-                        <!-- 動態問卷內容區 -->
                         <div id="form-content" class="space-y-6 sm:space-y-8"></div>
 
-                        <!-- 提交按鈕 -->
                         <div class="pt-4 sm:pt-6 border-t border-slate-200">
                             <button type="submit" id="submit-btn" class="w-full flex justify-center items-center gap-2 py-3.5 sm:py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-base sm:text-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95">
                                 <i data-lucide="send" class="w-4 h-4 sm:w-5 sm:h-5"></i>
@@ -295,10 +282,9 @@
                 </div>
             </div>
 
-            <!-- 狀態區塊 3: 完成畫面 (Success Phase) -->
+            <!-- 狀態區塊 3: 完成畫面 -->
             <div id="phase-success" class="w-full hidden animate-float" style="animation-duration: 6s;">
                 <div class="glass-panel rounded-3xl p-8 sm:p-10 text-center space-y-6 relative">
-                    <!-- 頂部裝飾條 -->
                     <div id="success-top-decor-bar" class="absolute top-0 left-0 w-full h-1.5 bg-blue-600 transition-colors duration-300 rounded-t-3xl"></div>
 
                     <div id="success-icon-bg" class="w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto shadow-inner text-blue-600 transition-colors duration-300">
@@ -314,58 +300,102 @@
                 </div>
             </div>
 
-        </div> <!-- 結束右側互動區塊 wrapper -->
+        </div> 
     </main>
 
     <script>
         lucide.createIcons();
 
-        // 系統狀態
         let currentContext = 'check-in'; 
         let currentUser = null;
-        
-        // 開發測試模式：設為 false 時將嚴格執行時間鎖定
         const TEST_MODE = true; 
 
-        // --- 主題切換引擎 (Theming Engine) ---
+        // ==========================================
+        // 【核心模組】CSV 動態解析引擎 (CSV Parsing Engine)
+        // 說明：請將您的 Excel / CSV 內容「直接」貼入下方的反引號 (`) 之中
+        // 系統會於前端自動編譯為主鍵映射矩陣 達成 SSOT 架構設計
+        // ==========================================
+        const RAW_CSV_DATA = `序號,姓名,職類別,所屬單位,職稱
+1,陳志偉,醫師,神經外科,主任
+2,黃琪雅,醫師,一般內科,備任主治醫師
+3,周琪,醫師,兒科,部長
+4,高霈馨,醫師,精神醫學部,主治醫師
+5,黃建元,醫師,家醫部,部長
+6,鄭琬霖,醫師,精神醫學部,主治醫師
+7,李季恆,醫師,急診,主治醫師
+8,陳鋭溢,醫師,內科部,主治醫師
+9,温仁育,醫師,生殖醫學科,主治醫師
+10,蔡長志,醫師,臨床技能中心,主任
+11,陳伯榕,醫師,急診醫學部,主治醫師
+12,郭進榮,醫師,教師培育中心,主任
+13,郭妍伶,醫師,一般科,主任
+14,黃建中,醫事放射,影像醫學部,總技師
+15,王傑田,醫事檢驗,臨床病理部,檢驗科主任
+16,江惠英,護理,護理部,副部長
+17,劉美媛,營養,營養科,主任
+18,鄭愛琴,呼吸治療,呼吸治療科,副組長
+19,洪素珍,聽力,耳鼻喉部,小組長
+20,劉汝庭,藥事,藥劑科,藥師
+21,蔡佩芳,藥事,郭綜合醫院藥劑科,藥師
+22,李昭寬,醫事放射,放射科,組長
+147,郭淑萍,護理,6A,護理師
+148,許博雅,護理,12B,護理師
+149,李佳蓉,護理,8A,護理師
+150,程維平,護理,7A,小組長
+151,蘇敬惠,護理,RCC,護理長
+152,林妙娟,護理,麻醉部,麻醉專科護理師
+153,陳巧雲,護理,6BICU,護理師
+154,陳育屏,護理,麻醉部,麻醉專科護理師
+155,黃瑩昕,護理,麻醉科,麻醉專科護理師
+156,李月晶,護理,OR,護理師
+157,宋玫伶,護理,DR,小組長
+158,李欣怡,護理,麻醉部,麻醉專科護理師
+159,張俐娟,護理,3BICU,護理師
+160,王藝蓁,護理,12B,小組長
+161,謝玫君,護理,3CI,護理師
+162,陳又琳,護理,3CI,護理師
+163,鄒佩珍,護理,6A,護理師
+164,陳雅涵,護理,6A,護理師
+165,陳怡君,護理,6A,護理師
+166,游雅雱,護理,5CI,護理師`;
+        // 若您後續有完整的 166 筆資料，請將上方片段替換為完整內容即可
+
+        const mockUsers = RAW_CSV_DATA.split('\n')
+            .map(line => line.trim())
+            .filter((line, index) => line !== '' && index > 0) // 跳過空行與標頭
+            .map(line => {
+                const cols = line.split(',');
+                return {
+                    uid: cols[0]?.trim() || '',
+                    name: cols[1]?.trim() || '',
+                    category: cols[2]?.trim() || '',
+                    dept: cols[3]?.trim() || '',
+                    title: cols[4]?.trim() || ''
+                };
+            }).filter(user => user.uid !== ''); // 過濾無效解析
+
+        // --- 主題切換引擎 ---
         const THEMES = {
             'check-in': {
-                name: 'pre',
-                primaryText: 'text-blue-600',
-                bgLight: 'bg-blue-50',
-                borderLight: 'border-blue-100',
-                btn: 'bg-blue-600 hover:bg-blue-700',
-                bgSolid: 'bg-blue-600',
-                focusRing: 'focus:ring-blue-600',
-                label: '簽到暨前測'
+                name: 'pre', primaryText: 'text-blue-600', bgLight: 'bg-blue-50', borderLight: 'border-blue-100',
+                btn: 'bg-blue-600 hover:bg-blue-700', bgSolid: 'bg-blue-600', focusRing: 'focus:ring-blue-600', label: '簽到暨前測'
             },
             'check-out': {
-                name: 'post',
-                primaryText: 'text-orange-600',
-                bgLight: 'bg-orange-50',
-                borderLight: 'border-orange-100',
-                btn: 'bg-orange-600 hover:bg-orange-700',
-                bgSolid: 'bg-orange-600',
-                focusRing: 'focus:ring-orange-600',
-                label: '簽退暨後測'
+                name: 'post', primaryText: 'text-orange-600', bgLight: 'bg-orange-50', borderLight: 'border-orange-100',
+                btn: 'bg-orange-600 hover:bg-orange-700', bgSolid: 'bg-orange-600', focusRing: 'focus:ring-orange-600', label: '簽退暨後測'
             }
         };
 
         function updateUITreme() {
             const theme = THEMES[currentContext];
-            
-            // 寫入 CSS 變數控制根節點
             document.body.setAttribute('data-theme', theme.name);
 
-            // 頂部裝飾條
             document.getElementById('top-decor-bar').className = `absolute top-0 left-0 w-full h-1.5 ${theme.bgSolid} transition-colors duration-300 rounded-t-3xl`;
             document.getElementById('form-top-decor-bar').className = `absolute top-0 left-0 w-full h-1.5 ${theme.bgSolid} transition-colors duration-300 rounded-t-2xl sm:rounded-t-3xl`;
             document.getElementById('success-top-decor-bar').className = `absolute top-0 left-0 w-full h-1.5 ${theme.bgSolid} transition-colors duration-300 rounded-t-3xl`;
 
-            // 導航列與首頁圖示
             document.getElementById('nav-brand-text').className = `${theme.primaryText} transition-colors duration-300`;
             
-            // 整合進導覽列的狀態標籤
             const sysIndicator = document.getElementById('system-mode-indicator');
             sysIndicator.innerText = theme.label;
             sysIndicator.className = `text-[11px] sm:text-xs font-bold px-2.5 sm:px-3 py-1 ${theme.bgLight} ${theme.primaryText} rounded-full transition-colors duration-300 border ${theme.borderLight} whitespace-nowrap shrink-0`;
@@ -373,14 +403,11 @@
             document.getElementById('search-icon-bg').className = `w-12 h-12 sm:w-16 sm:h-16 ${theme.bgLight} rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner ${theme.primaryText} transition-colors duration-300 border ${theme.borderLight}`;
             document.getElementById('search-highlight-text').className = `${theme.primaryText} transition-colors duration-300`;
             
-            // 表單標頭
             document.getElementById('form-title').className = `text-lg sm:text-2xl font-black ${theme.primaryText} transition-colors duration-300 leading-tight`;
             document.getElementById('user-badge').className = `inline-flex items-center gap-1.5 px-2.5 py-1 ${theme.bgLight} ${theme.primaryText} rounded-lg text-xs sm:text-sm font-bold border ${theme.borderLight} transition-colors duration-300`;
             
-            // 完成畫面圖示
             document.getElementById('success-icon-bg').className = `w-16 h-16 sm:w-20 sm:h-20 ${theme.bgLight} rounded-full flex items-center justify-center mx-auto shadow-inner ${theme.primaryText} transition-colors duration-300`;
 
-            // 左側看板 (桌機)
             const leftBadge = document.getElementById('left-badge');
             if (leftBadge) {
                 leftBadge.innerText = theme.label;
@@ -395,27 +422,17 @@
             const leftIlluIcon = document.getElementById('left-illustration-icon');
             if (leftIlluIcon) leftIlluIcon.className = `w-10 h-10 ${theme.primaryText} transition-colors duration-300`;
 
-            // 送出按鈕
             document.getElementById('submit-btn').className = `w-full flex justify-center items-center gap-2 py-3.5 sm:py-4 px-6 ${theme.btn} text-white rounded-xl font-bold text-base sm:text-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95`;
         }
 
-        // 模擬資料庫
-        const mockUsers = [
-            { uid: 'A001', name: '陳小明', category: '西醫師', dept: '教學部', title: '主治醫師' },
-            { uid: 'A002', name: '林華', category: '護理師', dept: '急診醫學部', title: '護理長' },
-            { uid: 'A003', name: '王大強', category: '醫事放射師', dept: '放射線部', title: '醫事放射師' },
-            { uid: 'A004', name: '陳詩芸', category: '行政人員', dept: '教學部', title: '專員' }
-        ];
-
-        // 問卷資料規格 (Schema)
+        // --- 問卷綱要配置 ---
         const QUESTIONS = {
             preTest: {
                 title: "前測問卷",
                 desc: "為瞭解您目前在兩堂課程相關面向的自我認知狀態，請依您「當下」的感受填答。",
                 sections: [
                     {
-                        id: "basic",
-                        title: "一、基本資料",
+                        id: "basic", title: "一、基本資料",
                         items: [
                             { id: "pre_role", type: "checkbox", label: "您目前擔任的教學角色（可複選）", options: ["計畫主持人（PD）", "教學負責人", "臨床教師", "教學行政人員"], allowOther: true, required: true },
                             { id: "pre_exp", type: "radio", label: "您累積的教學經驗", options: ["未滿1年", "1–3年", "4–7年", "8年以上"], required: true },
@@ -424,9 +441,7 @@
                         ]
                     },
                     {
-                        id: "partA",
-                        title: "二、自我評估 - Part A：PEC概論",
-                        desc: "1=非常不符合 ～ 5=非常符合",
+                        id: "partA", title: "二、自我評估 - Part A：PEC概論", desc: "1=非常不符合 ～ 5=非常符合",
                         items: [
                             { id: "pre_a1", type: "likert", label: "我能掌握PEC在CBME理論架構下的定位與任務內涵。" },
                             { id: "pre_a2", type: "likert", label: "我能理解APE的意義，以及其在驅動教學品質提升上的關鍵角色。" },
@@ -436,9 +451,7 @@
                         ]
                     },
                     {
-                        id: "partB",
-                        title: "二、自我評估 - Part B：在教學中找到方法",
-                        desc: "1=非常不符合 ～ 5=非常符合",
+                        id: "partB", title: "二、自我評估 - Part B：在教學中找到方法", desc: "1=非常不符合 ～ 5=非常符合",
                         items: [
                             { id: "pre_b6", type: "likert", label: "我能覺察並肯定自身的經驗與專業價值，相信自己具備帶來影響力的潛能。" },
                             { id: "pre_b7", type: "likert", label: "我能體認講師的角色與責任，以「學員為中心」進行教學。" },
@@ -454,9 +467,7 @@
                 desc: "感謝您的參與，為了瞭解學習成效，並作為未來策略優化依據，請評估您現在的狀態。",
                 sections: [
                     {
-                        id: "post_partA",
-                        title: "一、學習成效 - Part A：PEC概論",
-                        desc: "經過今日學習，請再次評估是否符合：（1=非常不符合 ～ 5=非常符合）",
+                        id: "post_partA", title: "一、學習成效 - Part A：PEC概論", desc: "經過今日學習，請再次評估是否符合：（1=非常不符合 ～ 5=非常符合）",
                         items: [
                             { id: "post_a1", type: "likert", label: "我能掌握PEC在CBME理論架構下的定位與任務內涵。" },
                             { id: "post_a2", type: "likert", label: "我能理解APE的意義，以及其在驅動教學品質提升上的關鍵角色。" },
@@ -466,9 +477,7 @@
                         ]
                     },
                     {
-                        id: "post_partB",
-                        title: "一、學習成效 - Part B：在教學中找到方法",
-                        desc: "經過今日學習，請再次評估是否符合：（1=非常不符合 ～ 5=非常符合）",
+                        id: "post_partB", title: "一、學習成效 - Part B：在教學中找到方法", desc: "經過今日學習，請再次評估是否符合：（1=非常不符合 ～ 5=非常符合）",
                         items: [
                             { id: "post_b6", type: "likert", label: "我能覺察並肯定自身的經驗與專業價值，相信自己具備帶來影響力的潛能。" },
                             { id: "post_b7", type: "likert", label: "我能體認講師的角色與責任，以「學員為中心」進行教學。" },
@@ -478,9 +487,7 @@
                         ]
                     },
                     {
-                        id: "behavior",
-                        title: "二、學習與應用",
-                        desc: "1=非常不同意 ～ 5=非常同意",
+                        id: "behavior", title: "二、學習與應用", desc: "1=非常不同意 ～ 5=非常同意",
                         items: [
                             { id: "beh_1", type: "likert", label: "研討會內容切合我個人的學習需求。" },
                             { id: "beh_2", type: "likert", label: "我認為自己已大致達成本研討會設定的學習目標。" },
@@ -492,9 +499,7 @@
                         ]
                     },
                     {
-                        id: "satisfaction",
-                        title: "三、課程滿意度評估",
-                        desc: "1=非常不同意 ～ 5=非常同意",
+                        id: "satisfaction", title: "三、課程滿意度評估", desc: "1=非常不同意 ～ 5=非常同意",
                         items: [
                             { id: "sat_1", type: "likert", label: "[PEC概論] 講師展現紮實的專業底蘊與教學熱忱。" },
                             { id: "sat_2", type: "likert", label: "[PEC概論] 課程教材與活動安排規劃完整。" },
@@ -511,7 +516,6 @@
             }
         };
 
-        // --- 智慧時間鎖定引擎 (Time-based Access Control) ---
         function checkEventTime() {
             const now = new Date();
             const eventDateStr = '2026-05-16';
@@ -607,7 +611,6 @@
         const searchInput = document.getElementById('name-input');
         const searchResults = document.getElementById('search-results');
 
-        // 攔截手機鍵盤的 Enter/搜尋 事件
         function handleSearchSubmit(e) {
             e.preventDefault();
             const keyword = searchInput.value.trim();
@@ -615,11 +618,9 @@
             
             const results = mockUsers.filter(u => u.name.includes(keyword));
             if (results.length === 1) {
-                // 如果只找到一筆，自動選取並進入表單
                 selectUser(results[0].uid);
                 searchInput.blur();
             } else {
-                // 若有多筆或沒有，將鍵盤收合讓使用者能點擊下方選單
                 searchInput.blur();
             }
         }
@@ -777,7 +778,6 @@
             }
         }
 
-        // 攔截並處理表單送出事件 (高容錯 API 串接引擎 - no-cors 模式盲發)
         async function handleFormSubmit(e) {
             e.preventDefault();
             
@@ -806,7 +806,7 @@
             }
             
             try {
-                // 使用 no-cors 模式強制盲發，避開瀏覽器對於 GAS API 轉址的嚴格 CORS 攔截
+                // 發送至 GAS 網頁應用程式 (使用您的專屬端點)
                 await fetch("https://script.google.com/macros/s/AKfycbw4XIrUy2tR8QRVxhv9AdqeZOSnCR3SqvNq52BWeqCbyy5GF4P2r0DbkpfHAXaTzqZZ7g/exec", {
                     method: "POST",
                     mode: "no-cors",
@@ -816,7 +816,6 @@
                     }
                 });
                 
-                // 盲發模式無法解析 JSON 回應，只要發送過程無拋出錯誤，即認定網路層傳輸成功
                 document.getElementById('phase-form').classList.add('hidden');
                 document.getElementById('phase-success').classList.remove('hidden');
                 
@@ -856,7 +855,6 @@
             window.scrollTo(0, 0);
         }
 
-        // 初始化背景動畫
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = []; let w, h;
@@ -875,7 +873,6 @@
             }
             draw() { 
                 ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); 
-                // 粒子顏色隨主題動態改變
                 ctx.fillStyle = document.body.getAttribute('data-theme') === 'post' ? 'rgba(234, 88, 12, 0.15)' : 'rgba(37, 99, 235, 0.15)'; 
                 ctx.fill(); 
             }
@@ -891,10 +888,7 @@
         }
         resize(); initParticles(); loop();
         
-        // 啟 কথ預設主題與時間鎖定
         checkEventTime();
-        
-        // 每分鐘定期檢查一次時間
         setInterval(checkEventTime, 60000);
     </script>
 </body>
