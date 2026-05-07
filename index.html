@@ -150,7 +150,7 @@
     <!-- 主內容區：縮減手機版 Padding，優化網格 -->
     <main class="flex-grow p-4 sm:p-6 pb-24 sm:pb-12 w-full max-w-6xl mx-auto z-10 relative grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-12 items-start min-h-[calc(100vh-4rem)]">
         
-        <!-- 左側資訊看板：桌機版專屬黏性側邊欄 (手機版完全隱藏以節省空間) -->
+        <!-- 左側資訊看板：桌機版專屬黏性側邊欄 (手機版隱藏) -->
         <div class="hidden lg:flex lg:col-span-5 flex-col sticky top-24 space-y-6 pt-2 xl:pt-6">
             <div>
                 <span id="left-badge" class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mb-3 transition-colors duration-300">前測</span>
@@ -193,6 +193,15 @@
         <!-- 右側互動區塊：動態表單區 -->
         <div class="w-full lg:col-span-7 flex flex-col justify-start max-w-lg mx-auto lg:max-w-full relative lg:pt-8">
             
+            <!-- 行動裝置版專用資訊看板 (無框線扁平化設計) -->
+            <div class="block lg:hidden w-full max-w-md mx-auto mb-5 px-2 animate-float" style="animation-duration: 6s;">
+                <h1 class="text-2xl font-black text-slate-800 leading-snug mb-2.5 tracking-tight">教師教學成長<br>與培育研討會</h1>
+                <div class="flex items-center gap-4 text-xs font-bold text-slate-500">
+                    <div class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4 text-[var(--theme-primary)] transition-colors duration-300"></i>5/16 13:00-16:00</div>
+                    <div class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-4 h-4 text-[var(--theme-primary)] transition-colors duration-300"></i>第五醫療大樓5樓</div>
+                </div>
+            </div>
+
             <!-- 狀態區塊 1: 身分搜尋 (Search Phase) -->
             <div id="phase-search" class="w-full animate-float" style="animation-duration: 6s;">
                 <!-- 縮減手機版 Padding 由 p-6 改為 p-5 -->
